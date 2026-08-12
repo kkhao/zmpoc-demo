@@ -1,0 +1,20 @@
+{
+  "generated_at": "2026-08-12T14:54:27.998069+00:00",
+  "html": "/home/fjxc/python_project/zmpoc/data/samples/demo_board/index.html",
+  "guide": "/home/fjxc/python_project/zmpoc/data/samples/demo_board/guide.html",
+  "n_slides": 5,
+  "flood_frames": 41,
+  "gas_frames": 41,
+  "flood_viz": "cfd3d",
+  "gas_viz": "cfd3d",
+  "fdem_frames": 12,
+  "fdem_viz": "fdem3d",
+  "fusion_frames": 12,
+  "fusion_layers": [
+    "stress",
+    "seepage",
+    "mine_pressure",
+    "gas"
+  ],
+  "collapse_cells": 841
+}

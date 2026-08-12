@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>操作说明 · 中煤 POC 演示板</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;650&family=Syne:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #12151a; --muted: #5a6570; --line: rgba(18,21,26,.14);
+      --paper: #fff; --bg: #e8eef2; --accent: #0a6b6b; --accent-deep: #085555; --steel: #1a3a4a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin:0; font-family: "IBM Plex Sans", system-ui, sans-serif; color: var(--ink);
+      background: var(--bg); line-height: 1.5;
+    }
+    .wrap { width: min(820px, calc(100% - 2rem)); margin: 0 auto; }
+    .topbar {
+      position: sticky; top:0; z-index: 20;
+      background: rgba(232,238,242,.92); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line); padding: .7rem 0;
+    }
+    .topbar .wrap { display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+    .topbar .brand { font-family: Syne, sans-serif; font-weight:700; font-size:1rem; margin:0; }
+    .topbar nav { display:flex; gap:.55rem; flex-wrap:wrap; }
+    .topbar a {
+      text-decoration:none; font-size:.82rem; font-weight:600; color:var(--ink);
+      padding:.35rem .65rem; border:1px solid var(--line); background:var(--paper);
+    }
+    .topbar a.primary { background:var(--steel); color:#fff; border-color:transparent; }
+    .topbar a:hover { border-color: var(--accent); color: var(--accent-deep); }
+    .topbar a.primary:hover { background: var(--accent-deep); color:#fff; }
+    header.hero {
+      padding: 2.2rem 0 1.2rem;
+      background: linear-gradient(165deg, #d5e0e8 0%, var(--bg) 70%);
+    }
+    header.hero h1 {
+      font-family: Syne, sans-serif; font-size: clamp(1.6rem, 4vw, 2.2rem);
+      letter-spacing:-.02em; margin:0 0 .5rem;
+    }
+    header.hero p { margin:0; color:var(--muted); max-width: 40rem; }
+    .guide-toc {
+      display:flex; flex-wrap:wrap; gap:.45rem; margin: 1.25rem 0 0;
+    }
+    .guide-toc a {
+      text-decoration:none; font-size:.8rem; font-weight:600; color:var(--ink);
+      padding:.35rem .65rem; border:1px solid var(--line); background:var(--paper);
+    }
+    .guide-toc a:hover { border-color:var(--accent); color:var(--accent-deep); }
+    main { padding: 1.25rem 0 3rem; }
+    .guide-block {
+      border:1px solid var(--line); background:var(--paper);
+      margin:0 0 .85rem; padding: 1rem 1.15rem 1.15rem;
+      scroll-margin-top: 4.2rem;
+    }
+    .guide-block h2 {
+      font-family: Syne, sans-serif; font-size:1.12rem; margin:0 0 .55rem;
+      letter-spacing:-.01em; color: var(--accent-deep);
+    }
+    .guide-body { font-size:.92rem; line-height:1.55; }
+    .guide-body h4 {
+      margin:1rem 0 .35rem; font-size:.92rem; color:var(--accent-deep); letter-spacing:.02em;
+    }
+    .guide-body h4:first-child { margin-top:.15rem; }
+    .guide-body p, .guide-body ul, .guide-body ol { margin:.35rem 0 .55rem; }
+    .guide-body li { margin:.2rem 0; }
+    .guide-body a { color:var(--accent-deep); }
+    .guide-body code {
+      font-family: ui-monospace, "Cascadia Code", monospace;
+      font-size:.78rem; background:rgba(18,21,26,.06); padding:.05rem .28rem;
+    }
+    footer {
+      padding: 1.5rem 0 2.5rem; border-top:1px solid var(--line);
+      color:var(--muted); font-size:.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap">
+      <p class="brand">操作说明</p>
+      <nav>
+        <a class="primary" href="index.html">返回演示板</a>
+        <a href="index.html#live">动态回放</a>
+        <a href="index.html#row-fdem">OpenFDEM</a>
+      </nav>
+    </div>
+  </div>
+  <header class="hero">
+    <div class="wrap">
+      <h1>功能与操作说明</h1>
+      <p>每个可视化模块的<strong>目的、原理、操作步骤、读图要点与边界</strong>。读完可返回演示板对照操作；演示板上各行「操作说明」会跳到本章锚点。</p>
+      <div class="guide-toc">
+        <a href="#guide-overview">总览</a>
+        <a href="#guide-geology_a1">A1</a>
+        <a href="#guide-geology">A2</a>
+        <a href="#guide-fdem">FDEM</a>
+        <a href="#guide-flood">突水</a>
+        <a href="#guide-gas">瓦斯</a>
+        <a href="#guide-fusion">融合</a>
+        <a href="#guide-faq">FAQ</a>
+        <a href="index.html#live">进入回放 →</a>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="wrap">
+      
+      <article class="guide-block" id="guide-overview">
+        <h2>0. 总览：怎么用这块板子</h2>
+        <div class="guide-body">
+<p><strong>推荐浏览顺序（与演示板行序一致）：</strong>
+A1 基线地质 → A2 更新地质 → OpenFDEM 损伤/垮塌 → 突水 → 瓦斯 → 多源融合。</p>
+<ol>
+  <li><strong>通用三维操作：</strong>在画布上按住拖动可旋转（轨道相机）；底部「播放」自动切帧，「进度条」手动 scrub；「联播轻量行」只播 FDEM/水/气/融合，<em>不联播</em>地质（避免双面卡顿）。</li>
+  <li><strong>离屏暂停：</strong>滚出可视区后动画会自动停，减轻负载。</li>
+  <li><strong>改参重算：</strong>仅在本机 <code>serve_demo.py</code> 下可用；GitHub Pages / 纯静态打开时表单会禁用并提示只读。</li>
+  <li><strong>演示边界（必读）：</strong>地质场景是 USGS PRB Roland/Baker 示范块；材料/地应力为 SCREENING 未现场标定；
+  A 地质 CRS=<code>EPSG:26713 local</code>，突水/瓦斯巷道 CRS=<code>ZM_POC_LOCAL_ENU_v1</code>，<strong>禁止混空间关联</strong>。</li>
+  <li><strong>验收主戏：</strong>A1/A2 VTK 直面 + A3 Linux 真算 FDEM（含 CZM 破缝与顶板下沉示意）。</li>
+</ol>
+<p><a href="index.html#live">打开演示板动态回放 →</a></p>
+        </div>
+      </article>
+      <article class="guide-block" id="guide-geology_a1">
+        <h2>1. A1 基线地质 · VTK 对照</h2>
+        <div class="guide-body">
+<h4>目的</h4>
+<p>展示 <strong>ModelPackage v1</strong> 更新前的煤层几何：顶/底板三角网、solid 侧壁、夹矸证据体、断层面、基线钻孔。
+用来回答「更新前煤层长什么样」。算法标签：普通克里金（ordinary kriging）。</p>
+<h4>原理（数据从哪来）</h4>
+<ul>
+  <li>输入：USGS PRB 钻孔约束 → A 侧建 ModelPackage/v1。</li>
+  <li>网页渲染：直接读 VTK 三角面（roof/floor/solid 侧壁/parting/Fault_1·2），不是示意点云。</li>
+  <li>帧标量：厚度 <code>thickness_m</code>、顶板高程 <code>roof_elev_m</code>、底板高程 <code>floor_elev_m</code>（共 3 帧）。</li>
+  <li>琥珀面=夹矸；暗红面=断层；线框=工作面四边。</li>
+</ul>
+<h4>操作步骤</h4>
+<ol>
+  <li>在演示板点「从 A1 地质开始」，或滚到 A1 行。</li>
+  <li>拖底部进度条：第 1 帧厚度 → 第 2 帧顶板高程（基线面常用）→ 第 3 帧底板高程。</li>
+  <li>按住画布拖动旋转，从斜上方看清工作面矩形与钻孔点标注。</li>
+  <li>左侧「关键参数」核对：来源 v1、三角面约 1.6 万、钻孔 18、CRS 26713。</li>
+</ol>
+<h4>读图要点</h4>
+<ul>
+  <li>色条：暖/高 = 当前帧标量更大（厚度更厚或高程更高）。</li>
+  <li>记住顶板起伏与工作面位置，便于下一步和 A2 对比。</li>
+</ul>
+<h4>不要误解</h4>
+<p>A1 没有 AOI/残差帧；也不是中煤现场工作面。</p>
+<p><a href="index.html#row-geology_a1">打开演示板 · A1 ↑</a></p>
+        </div>
+      </article>
+      <article class="guide-block" id="guide-geology">
+        <h2>2. A2 地质对照 · VTK 顶底板/侧壁/夹矸/断层</h2>
+        <div class="guide-body">
+<h4>目的</h4>
+<p>展示 <strong>ModelPackage v2</strong>：在同拓扑上做 AOI 局部 RBF 残差更新（新孔约束），
+用来回答「相对 A1，哪里改了、改了多少」。算法标签：kriging + RBF AOI。</p>
+<h4>原理</h4>
+<ul>
+  <li>几何仍是 VTK 直面（顶/底/侧壁/夹矸/断层）；夹矸与新孔比 A1 更多。</li>
+  <li>帧标量（6 帧）：
+    <code>thickness_m</code> → <code>aoi_weight</code> → <code>roof_delta_m</code> →
+    <code>floor_delta_m</code> → <code>roof_elev_m</code> → <code>v1_to_v2_roof_dz</code>。</li>
+  <li><code>aoi_weight</code>：更新区权重（高值≈本次残差更新作用区）。</li>
+  <li><code>v1_to_v2_roof_dz</code>：相对 A1 的顶板高程差，对比更新幅度最直观。</li>
+  <li>线框含工作面边界 + A2 AOI 盒。</li>
+</ul>
+<h4>操作步骤（推荐对比流程）</h4>
+<ol>
+  <li>先在 A1 停在 <code>roof_elev_m</code>，心里记住形态。</li>
+  <li>滚到 A2 行，拖进度条到 <code>aoi_weight</code>：看高值落在哪一片。</li>
+  <li>再拖到 <code>v1_to_v2_roof_dz</code>：高/低差对应「抬升/压低」幅度。</li>
+  <li>可选扫 <code>roof_delta_m</code> / <code>floor_delta_m</code> 看残差场。</li>
+  <li>旋转到与 A1 相近视角，上下对照口述「更新区」。</li>
+</ol>
+<h4>读图要点</h4>
+<ul>
+  <li>AOI 高值区应与 Δz / 残差明显区域大致重合。</li>
+  <li>参数区：钻孔约 22（基线+新孔）、夹矸更多、帧数 6。</li>
+</ul>
+<h4>边界</h4>
+<p>CRS 仍为 EPSG:26713 local；勿与下方突水/瓦斯示范巷道混谈空间关系。</p>
+<p><a href="index.html#row-geology">打开演示板 · A2 ↑</a></p>
+        </div>
+      </article>
+      <article class="guide-block" id="guide-fdem">
+        <h2>3. OpenFDEM 损伤演化 · 3D（含垮塌示意）</h2>
+        <div class="guide-body">
+<h4>目的</h4>
+<p>展示 A3 <strong>FdemMeshPackage</strong> 经 Linux OpenFDEM <strong>8 步开挖真算</strong>后的损伤演化，
+并用 CZM 破缝 + 顶板下沉把「垮塌机理」做成可见效果（非预画碎块动画）。</p>
+<h4>原理</h4>
+<ul>
+  <li>主路径：2D 平面应变长壁剖面 → 场 VTU（damage）→ 沿走向挤成薄板点云便于旋转。</li>
+  <li><strong>深红短线</strong>：从 <code>cohesive_elements_*.vtp</code> 提取 <code>damageValue≥0.5</code> 的破缝边。</li>
+  <li><strong>顶板大红点下沉</strong>：煤层顶以上、高损伤点随开挖进程按损伤加权下移（示意垮塌，非刚体动力学）。</li>
+  <li>左下角 <code>CZM 破缝 N</code>：当前帧破缝单元数（随播放递增，末态约三百量级；报告统计 final_broken_czm≈465）。</li>
+  <li>灰线框：顶/煤/底分层 + A2 剖面叠层（mesh2d 局部坐标）。</li>
+  <li>材料：SCREENING_ONLY，未现场标定。</li>
+</ul>
+<h4>操作步骤</h4>
+<ol>
+  <li>打开演示板 FDEM 行（或点顶部「OpenFDEM 主戏」）。</li>
+  <li>点「播放」，或把进度条从最左拖到最右。</li>
+  <li>观察：损伤由冷到暖；深红破缝变密；顶板点明显下沉；左下角计数上升。</li>
+  <li>左侧关键参数核对：开挖步数 8、CZM 破裂、场 VTU→板子帧数、材料 screening。</li>
+  <li>右侧：周期来压示意曲线（若有）；场景下拉可改（本机 API 下重建<strong>可视化</strong>）。</li>
+</ol>
+<h4>改参说明（易误解点）</h4>
+<p>按钮文案为「重建可视化（历史结果回放）」：默认<strong>不重新跑</strong> OpenFDEM 求解，只按参数重映已有 VTU。
+真·重算需本机正式 OpenFDEM 作业链（<code>run_a3_staged_excavation.py</code>）。</p>
+<h4>读图要点</h4>
+<ul>
+  <li>要讲垮塌：盯破缝 + 顶板下沉 + CZM 计数，而不是期待「石块掉落」电影级动画。</li>
+  <li>ParaView 可打开 <code>result_staged_excavation/</code> 查看完整 VTU/VTP。</li>
+</ul>
+<p><a href="index.html#row-fdem">打开演示板 · FDEM ↑</a></p>
+        </div>
+      </article>
+      <article class="guide-block" id="guide-flood">
+        <h2>4. 突水蔓延</h2>
+        <div class="guide-body">
+<h4>目的</h4>
+<p>演示<strong>矿方示范巷道网</strong>上的突水/积水三维蔓延能力（FV3D 体素守恒或网络降阶），
+不是 Roland 工作面地质同框。</p>
+<h4>原理</h4>
+<ul>
+  <li>巷道体素上做含水比例 α 的输运：邻体交换、走廊混合、重力偏置（水倾向低洼）。</li>
+  <li>源点通常为低洼积水节点（如 N7）；色深 = α 高。</li>
+  <li>CRS：<code>ZM_POC_LOCAL_ENU_v1</code>。</li>
+</ul>
+<h4>操作步骤</h4>
+<ol>
+  <li>点「播放」或拖进度条，看含水团从源点向连通巷道推进。</li>
+  <li>左侧可改注入强度、步数、重力偏置、精度（需本机 API）。</li>
+  <li>右侧「当前帧读数」随进度刷新节点水位摘要。</li>
+</ol>
+<h4>边界</h4>
+<p>与 A1/A2 VTK <strong>不同 CRS</strong>；讲解时明确「监测侧能力展示」。Pages 上改参不可用。</p>
+<p><a href="index.html#row-flood">打开演示板 · 突水 ↑</a></p>
+        </div>
+      </article>
+      <article class="guide-block" id="guide-gas">
+        <h2>5. 瓦斯蔓延</h2>
+        <div class="guide-body">
+<h4>目的</h4>
+<p>演示示范巷道内瓦斯涌出后的对流–扩散浓度场，帮助理解风流携带与联巷扩展。</p>
+<h4>原理</h4>
+<ul>
+  <li>体素上对流–扩散：进风→回风指示风速 + 扩散 + 弱衰减。</li>
+  <li>源点多为工作面节点（如 N4）；暖色 = 浓度高。</li>
+  <li>CRS 同突水：<code>ZM_POC_LOCAL_ENU_v1</code>。</li>
+</ul>
+<h4>操作步骤</h4>
+<ol>
+  <li>播放整段时序，观察浓度沿运顺/轨顺与联巷扩展。</li>
+  <li>本机可下调涌出强度、扩散、通风指示风速等后重算。</li>
+  <li>对照进风/回风口理解「风流携带」叙事。</li>
+</ol>
+<h4>边界</h4>
+<p>浓度多为演示量纲；通风非现场标定。勿与 A 地质 VTK 叠图。</p>
+<p><a href="index.html#row-gas">打开演示板 · 瓦斯 ↑</a></p>
+        </div>
+      </article>
+      <article class="guide-block" id="guide-fusion">
+        <h2>6. 多源融合 · 应力/渗流属性场</h2>
+        <div class="guide-body">
+<h4>目的</h4>
+<p>在同一几何上承载应力/矿压/渗流/瓦斯等多参数属性，叠加构造线框与超阈异常点，
+并给出 ahead_geology 类前方条带评分（POC 级）。</p>
+<h4>原理</h4>
+<ul>
+  <li>监测台账 → Envelope → IDW 属性场 → 脉冲时序体场。</li>
+  <li>异常事件与构造折线缓冲带做空间关联。</li>
+  <li><code>ahead_geology</code>：超前条带趋势 + 缓冲带异常融合评分，<strong>不是</strong> A2 VTK 地质预报。</li>
+</ul>
+<h4>操作步骤</h4>
+<ol>
+  <li>用图层下拉切换 stress / seepage / mine_pressure / gas。</li>
+  <li>播放看脉冲时序；注意线框=构造、圆点=异常。</li>
+  <li>本机可改脉冲倍率、帧数、展望时长后「改参融合」。</li>
+</ol>
+<h4>读图与边界</h4>
+<p>勿把融合层说成「已与 A2 煤层同 CRS 同化」。现场数据替换后需统一 crs_id 再谈同框。</p>
+<p><a href="index.html#row-fusion">打开演示板 · 融合 ↑</a></p>
+        </div>
+      </article>
+      <article class="guide-block" id="guide-faq">
+        <h2>7. 常见问题</h2>
+        <div class="guide-body">
+<ul>
+  <li><strong>为什么看不到电影级垮塌？</strong>网页用破缝线 + 顶板下沉示意 CZM 机理；完整碎块过程请用 ParaView 打开 cohesive/field 结果。</li>
+  <li><strong>A1/A2 看起来差不多？</strong>几何同拓扑；请把 A2 拖到 <code>aoi_weight</code> / <code>v1_to_v2_roof_dz</code> 才能看出更新区。</li>
+  <li><strong>改参按钮灰了？</strong>当前是静态 Pages 或未启动 <code>serve_demo.py</code>。</li>
+  <li><strong>全部自动播放卡顿？</strong>请用「联播轻量行」，地质请单独播放。</li>
+  <li><strong>突水/瓦斯和地质对不上？</strong>两套 CRS，属故意分离的对照演示。</li>
+  <li><strong>数字 465 和左下角破缝数不一致？</strong>报告为全量 broken 统计；网页为抽样破缝边（有上限）+ 阈值≥0.5，量级同趋势即可。</li>
+</ul>
+<p>更多验收口述：仓库内 <code>docs/验收演示讲稿.md</code> · 换数清单：<code>docs/真数据替换清单.md</code>。</p>
+<p><a href="index.html">返回演示板首页 →</a></p>
+        </div>
+      </article>
+    </div>
+  </main>
+  <footer>
+    <div class="wrap">
+      与演示板同步生成 · <code>python scripts/build_demo_board.py</code>
+      · <a href="index.html">index.html</a>
+    </div>
+  </footer>
+</body>
+</html>
