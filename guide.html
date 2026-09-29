@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>操作说明 · 中煤 POC 演示板</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;650&family=Syne:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #12151a; --muted: #5a6570; --line: rgba(18,21,26,.14);
+      --paper: #fff; --bg: #e8eef2; --accent: #0a6b6b; --accent-deep: #085555; --steel: #1a3a4a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin:0; font-family: "IBM Plex Sans", system-ui, sans-serif; color: var(--ink);
+      background: var(--bg); line-height: 1.5;
+    }
+    .wrap { width: min(820px, calc(100% - 2rem)); margin: 0 auto; }
+    .topbar {
+      position: sticky; top:0; z-index: 20;
+      background: rgba(232,238,242,.92); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line); padding: .7rem 0;
+    }
+    .topbar .wrap { display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+    .topbar .brand { font-family: Syne, sans-serif; font-weight:700; font-size:1rem; margin:0; }
+    .topbar nav { display:flex; gap:.55rem; flex-wrap:wrap; }
+    .topbar a {
+      text-decoration:none; font-size:.82rem; font-weight:600; color:var(--ink);
+      padding:.35rem .65rem; border:1px solid var(--line); background:var(--paper);
+    }
+    .topbar a.primary { background:var(--steel); color:#fff; border-color:transparent; }
+    .topbar a:hover { border-color: var(--accent); color: var(--accent-deep); }
+    .topbar a.primary:hover { background: var(--accent-deep); color:#fff; }
+    header.hero {
+      padding: 2.2rem 0 1.2rem;
+      background: linear-gradient(165deg, #d5e0e8 0%, var(--bg) 70%);
+    }
+    header.hero h1 {
+      font-family: Syne, sans-serif; font-size: clamp(1.6rem, 4vw, 2.2rem);
+      letter-spacing:-.02em; margin:0 0 .5rem;
+    }
+    header.hero p { margin:0; color:var(--muted); max-width: 40rem; }
+    .guide-toc {
+      display:flex; flex-wrap:wrap; gap:.45rem; margin: 1.25rem 0 0;
+    }
+    .guide-toc a {
+      text-decoration:none; font-size:.8rem; font-weight:600; color:var(--ink);
+      padding:.35rem .65rem; border:1px solid var(--line); background:var(--paper);
+    }
+    .guide-toc a:hover { border-color:var(--accent); color:var(--accent-deep); }
+    main { padding: 1.25rem 0 3rem; }
+    .guide-block {
+      border:1px solid var(--line); background:var(--paper);
+      margin:0 0 .85rem; padding: 1rem 1.15rem 1.15rem;
+      scroll-margin-top: 4.2rem;
+    }
+    .guide-block h2 {
+      font-family: Syne, sans-serif; font-size:1.12rem; margin:0 0 .55rem;
+      letter-spacing:-.01em; color: var(--accent-deep);
+    }
+    .guide-body { font-size:.92rem; line-height:1.55; }
+    .guide-body h4 {
+      margin:1rem 0 .35rem; font-size:.92rem; color:var(--accent-deep); letter-spacing:.02em;
+    }
+    .guide-body h4:first-child { margin-top:.15rem; }
+    .guide-body p, .guide-body ul, .guide-body ol { margin:.35rem 0 .55rem; }
+    .guide-body li { margin:.2rem 0; }
+    .guide-body a { color:var(--accent-deep); }
+    .guide-body code {
+      font-family: ui-monospace, "Cascadia Code", monospace;
+      font-size:.78rem; background:rgba(18,21,26,.06); padding:.05rem .28rem;
+    }
+    footer {
+      padding: 1.5rem 0 2.5rem; border-top:1px solid var(--line);
+      color:var(--muted); font-size:.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap">
+      <p class="brand">操作说明</p>
+      <nav>
+        <a class="primary" href="index.html">返回演示板</a>
+        <a href="index.html#live">动态回放</a>
+        <a href="index.html#row-fdem">OpenFDEM</a>
+      </nav>
+    </div>
+  </div>
+  <header class="hero">
+    <div class="wrap">
+      <h1>功能与操作说明</h1>
+      <p>每个可视化模块的<strong>目的、原理、操作步骤、读图要点与边界</strong>。读完可返回演示板对照操作；演示板上各行「操作说明」会跳到本章锚点。</p>
+      <div class="guide-toc">
+        <a href="#guide-overview">总览</a>
+        <a href="#guide-geology_a1">A1</a>
+        <a href="#guide-geology_bh">钻孔柱</a>
+        <a href="#guide-geology">A2观测</a>
+        <a href="#guide-geology_diff">AOI差值</a>
+        <a href="#guide-fdem">FDEM</a>
+        <a href="#guide-mining_feedback">采动反哺</a>
+        <a href="#guide-flood">突水</a>
+        <a href="#guide-gas">瓦斯</a>
+        <a href="#guide-fusion">融合</a>
+        <a href="#guide-faq">FAQ</a>
+        <a href="index.html#live">进入回放 →</a>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="wrap">
+      
+      <article class="guide-block" id="guide-overview">
+        <h2>0. 总览：怎么用这块板子</h2>
+        <div class="guide-body">
+<p><strong>推荐浏览顺序（与演示板行序一致）：</strong>
+A1 基线 → <em>A1 钻孔柱</em> → A2 <em>观测更新</em> → <em>AOI 差值放大</em> → OpenFDEM 损伤 → <em>采动反哺示意</em> → 突水 → 瓦斯 → 融合。</p>
+<ol>
+  <li><strong>通用三维操作：</strong>在画布上按住拖动可旋转（轨道相机）；底部「播放」自动切帧，「进度条」手动 scrub；「联播轻量行」只播 FDEM/采动反哺/水/气/融合，<em>不联播</em>地质（避免双面卡顿）。</li>
+  <li><strong>两类地质更新（必读）：</strong>
+    <ul>
+      <li><strong>A2 观测更新</strong>：新钻孔/掘进揭露 → 数学差值（RBF/AOI），适用于揭露信息修正。局部看不清时用「AOI 差值放大」行。</li>
+      <li><strong>采动反哺</strong>：回采采空区 → 力学损伤/下沉 → 顶板修正示意图层；正式写回 ModelPackage 与三维充填标定仍属规划。</li>
+    </ul>
+  </li>
+  <li><strong>竖向/差值夸张：</strong>钻孔柱 VE 与 AOI「差值夸张」均为<strong>显示夸张</strong>，角标已标注，非真实比例。</li>
+  <li><strong>离屏暂停：</strong>滚出可视区后动画会自动停，减轻负载。</li>
+  <li><strong>改参重算：</strong>仅在本机 <code>serve_demo.py</code> 下可用；GitHub Pages / 纯静态打开时表单会禁用并提示只读。</li>
+  <li><strong>演示边界（必读）：</strong>地质场景是 USGS PRB Roland/Baker 示范块；材料/地应力为 SCREENING 未现场标定；
+  A 地质 CRS=<code>EPSG:26713 local</code>，突水/瓦斯巷道 CRS=<code>ZM_POC_LOCAL_ENU_v1</code>，采动反哺与 FDEM 同剖面局部系，<strong>禁止混空间关联</strong>。</li>
+  <li><strong>验收主戏：</strong>A1/A2 VTK + A3 FDEM 回放 + 采动反哺半闭环示意。</li>
+</ol>
+<p><a href="index.html#live">打开演示板动态回放 →</a></p>
+        </div>
+      </article>
+      <article class="guide-block" id="guide-geology_a1">
+        <h2>1. A1 基线地质 · VTK 对照</h2>
+        <div class="guide-body">
+<h4>目的</h4>
+<p>展示 <strong>ModelPackage v1</strong> 更新前的煤层几何：顶/底板三角网、solid 侧壁、夹矸证据体、断层面、基线钻孔。
+用来回答「更新前煤层长什么样」。算法标签：普通克里金（ordinary kriging）。</p>
+<h4>原理（数据从哪来）</h4>
+<ul>
+  <li>输入：USGS PRB 钻孔约束 → A 侧建 ModelPackage/v1。</li>
+  <li>网页渲染：直接读 VTK 三角面（roof/floor/solid 侧壁/parting/Fault_1·2），不是示意点云。</li>
+  <li>帧标量：厚度 <code>thickness_m</code>、顶板高程 <code>roof_elev_m</code>、底板高程 <code>floor_elev_m</code>（共 3 帧）。</li>
+  <li>琥珀面=夹矸；暗红面=断层；线框=工作面四边。</li>
+</ul>
+<h4>操作步骤</h4>
+<ol>
+  <li>在演示板点「从 A1 地质开始」，或滚到 A1 行。</li>
+  <li>拖底部进度条：第 1 帧厚度 → 第 2 帧顶板高程（基线面常用）→ 第 3 帧底板高程。</li>
+  <li>按住画布拖动旋转，从斜上方看清工作面矩形与钻孔点标注。</li>
+  <li>左侧「关键参数」核对：来源 v1、三角面约 1.6 万、钻孔 18、CRS 26713。</li>
+</ol>
+<h4>读图要点</h4>
+<ul>
+  <li>色条：暖/高 = 当前帧标量更大（厚度更厚或高程更高）。</li>
+  <li>记住顶板起伏与工作面位置，便于下一步和 A2 对比。</li>
+</ul>
+<h4>不要误解</h4>
+<p>A1 没有 AOI/残差帧；也不是中煤现场工作面。</p>
+<p><a href="index.html#row-geology_a1">打开演示板 · A1 ↑</a></p>
+        </div>
+      </article>
+      <article class="guide-block" id="guide-geology_bh">
+        <h2>1b. A1 钻孔柱 / 剖面 · 纵向结构</h2>
+        <div class="guide-body">
+<h4>目的</h4>
+<p>补足全场平面图对<strong>钻孔纵向结构</strong>与夹矸埋藏关系的表达不足。</p>
+<h4>操作</h4>
+<ol>
+  <li>切换竖向放大 ×1 / ×10 / ×20（角标会标注「非真实比例」）。</li>
+  <li>拖进度条切换选中孔；高亮柱段：灰=覆岩、黑=煤、琥珀=夹矸。</li>
+  <li>点击标记点读「孔口 / 煤层顶界 / 夹矸 / 底板」高程。</li>
+  <li>折线为过选中孔的顶底板剖切采样。</li>
+</ol>
+<h4>边界</h4>
+<p>示意岩性柱，非全井地层库；夹矸为 catalog 局部证据体，不作全区连续层。</p>
+<p><a href="index.html#row-geology_bh">打开演示板 · 钻孔柱 ↑</a></p>
+        </div>
+      </article>
+      <article class="guide-block" id="guide-geology">
+        <h2>2. A2 观测更新 · 新孔/揭露差值（非采动演化）</h2>
+        <div class="guide-body">
+<h4>目的</h4>
+<p>展示 <strong>ModelPackage v2「观测约束更新」</strong>：在同拓扑上用新钻孔/掘进揭露做 AOI 局部 RBF 残差修正。
+<strong>适用于掘进揭露信息修正</strong>；<strong>不</strong>承担回采采空区断裂/垮落/充填的物理演化。</p>
+<h4>原理</h4>
+<ul>
+  <li>几何仍是 VTK 直面；帧含 <code>aoi_weight</code>、<code>v1_to_v2_roof_dz</code> 等。</li>
+  <li>更新驱动：新孔约束 + 数学差值，不是 OpenFDEM 力学结果。</li>
+  <li>采空区顶板垮落形态请看 <a href="#guide-mining_feedback">采动反哺示意</a>。</li>
+</ul>
+<h4>操作步骤</h4>
+<ol>
+  <li>A1 停在 <code>roof_elev_m</code> 记住形态。</li>
+  <li>本行拖到 <code>aoi_weight</code> / <code>v1_to_v2_roof_dz</code> 看观测更新区。</li>
+</ol>
+<h4>边界</h4>
+<p>CRS=EPSG:26713 local。与采动反哺、水/瓦斯巷道勿混谈同框。</p>
+<p><a href="index.html#row-geology">打开演示板 · A2 ↑</a></p>
+        </div>
+      </article>
+      <article class="guide-block" id="guide-geology_diff">
+        <h2>2b. A2 AOI 差值放大 · 真实米制 Δz</h2>
+        <div class="guide-body">
+<h4>目的</h4>
+<p>回答「A1/A2 全场几乎看不出区别」：2 km 视图压缩局部数米变化，且旧帧曾 0–1 归一化。</p>
+<h4>操作</h4>
+<ol>
+  <li>本行已裁剪到 AOI+buffer。</li>
+  <li>切换：Δz 填色（真实米）/ A1∪A2 叠影 / 差值夸张位移。</li>
+  <li>色条单位为米；夸张只改变显示位移，不改变色条语义。</li>
+</ol>
+<p><a href="index.html#row-geology_diff">打开演示板 · AOI 差值 ↑</a></p>
+        </div>
+      </article>
+      <article class="guide-block" id="guide-fdem">
+        <h2>3. OpenFDEM 损伤演化 · 历史结果回放</h2>
+        <div class="guide-body">
+<h4>目的</h4>
+<p>展示 A3 开挖真算的损伤/CZM 破缝历史回放（二维挤出展示）。</p>
+<h4>与采动反哺的关系</h4>
+<p>本行是力学<strong>过程场</strong>；下一行「采动反哺」把损伤映射为顶板修正量，形成半闭环示意。</p>
+<p><a href="index.html#row-fdem">打开演示板 · FDEM ↑</a></p>
+        </div>
+      </article>
+      <article class="guide-block" id="guide-mining_feedback">
+        <h2>4. 采动反哺示意 · 六步闭环（岩体状态 / 充填 / 同化）</h2>
+        <div class="guide-body">
+<h4>目的</h4>
+<p>回应「损伤×下沉不能只停在表面高程」：扩展到岩体状态、自然垮落/人工充填双路径、监测残差示意同化与下一阶段外推。</p>
+<h4>六步闭环</h4>
+<ol>
+  <li>现场观测（示范矿压点）</li>
+  <li>更新模型与参数（sag_fraction 等示意）</li>
+  <li>采动力学计算（OpenFDEM 历史损伤）</li>
+  <li>更新采后结构（roof_dz / 离层 / 收敛 / 支架代理）</li>
+  <li>与新监测比较（观测−计算残差）</li>
+  <li>下一阶段预测（规则外推帧）</li>
+</ol>
+<h4>操作</h4>
+<ol>
+  <li>播放帧：<code>roof_dz</code> → <code>bed_separation</code> / <code>convergence</code> / <code>support_proxy</code> → <code>goaf_natural</code> / <code>goaf_backfill</code> → <code>forecast_*</code>。</li>
+  <li>切换「自然垮落 / 人工充填」：接顶率×龄期×承载折减有效下沉（示意）。</li>
+</ol>
+<h4>边界</h4>
+<p>screening；非 OpenFDEM 充填本构；不自动写回 ModelPackage。真标定属二期。</p>
+<p><a href="index.html#row-mining_feedback">打开演示板 · 采动反哺 ↑</a></p>
+        </div>
+      </article>
+      <article class="guide-block" id="guide-flood">
+        <h2>5. 突水蔓延</h2>
+        <div class="guide-body">
+<h4>目的</h4>
+<p>演示示范巷道突水/积水三维蔓延（FV3D）。可继续与矿方交流标定优先级。</p>
+<p><a href="index.html#row-flood">打开演示板 · 突水 ↑</a></p>
+        </div>
+      </article>
+      <article class="guide-block" id="guide-gas">
+        <h2>6. 瓦斯蔓延</h2>
+        <div class="guide-body">
+<h4>目的</h4>
+<p>演示示范巷道瓦斯对流–扩散（FV3D）。可继续与矿方交流关注点与数据接口。</p>
+<p><a href="index.html#row-gas">打开演示板 · 瓦斯 ↑</a></p>
+        </div>
+      </article>
+      <article class="guide-block" id="guide-fusion">
+        <h2>7. 多源融合 · 应力/渗流属性场</h2>
+        <div class="guide-body">
+<h4>目的</h4>
+<p>多参数属性场与构造关联；ahead_geology 为条带评分，不是 A2 VTK 预报。</p>
+<p><a href="index.html#row-fusion">打开演示板 · 融合 ↑</a></p>
+        </div>
+      </article>
+      <article class="guide-block" id="guide-faq">
+        <h2>8. 常见问题</h2>
+        <div class="guide-body">
+<ul>
+  <li><strong>A2 和采动反哺有何不同？</strong>A2=观测差值（掘进/新孔）；采动反哺=力学损伤→顶板修正示意（回采）。</li>
+  <li><strong>为什么全场 A1/A2 几乎一样？</strong>2 km 尺度压缩局部数米；请看「AOI 差值放大」行（真实米制 Δz）。</li>
+  <li><strong>竖向放大是真厚度吗？</strong>不是。×10/×20 仅显示夸张，角标有说明。</li>
+  <li><strong>采动反哺是否已写回地质包？</strong>POC 半闭环仅出示意图层，未写回 ModelPackage。</li>
+  <li><strong>为什么看不到电影级垮塌？</strong>破缝+下沉+roof_dz 示意；完整块体请 ParaView。</li>
+  <li><strong>改参按钮灰了？</strong>静态 Pages 或未启动 serve_demo。</li>
+</ul>
+<p><a href="index.html">返回演示板首页 →</a></p>
+        </div>
+      </article>
+    </div>
+  </main>
+  <footer>
+    <div class="wrap">
+      与演示板同步生成 · <code>python scripts/build_demo_board.py</code>
+      · <a href="index.html">index.html</a>
+    </div>
+  </footer>
+</body>
+</html>
